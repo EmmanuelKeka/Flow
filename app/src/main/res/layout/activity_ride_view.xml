@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RideViewActivity"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ridesharekccarpool"
+        android:layout_margin="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="550dp"
+        android:layout_centerInParent="true"
+        android:gravity="center|top"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/profilImageRideView"/>
+
+            <TextView
+                android:id="@+id/driverNameViewTrop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DriverName" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/TripDateTimeRideView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Date Time:" />
+
+        <TextView
+            android:id="@+id/priceRideView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Price: " />
+
+        <TextView
+            android:id="@+id/fromViewTrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="from" />
+
+        <fragment
+            android:id="@+id/the_map"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="300dp"
+            android:layout_height="253dp"
+            map:cameraTargetLat="40"
+            map:cameraTargetLng="-110"
+            map:cameraZoom="3"
+            tools:layout="@layout/activity_chat" />
+
+        <TextView
+            android:id="@+id/toViewTrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="to" />
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:onClick="bookTrip"
+            android:text="Book trip" />
+    </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nabBarRideView"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
