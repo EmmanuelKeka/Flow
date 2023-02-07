@@ -1,4 +1,4 @@
-package com.example.flow;
+package com.example.flow.listAdapers;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.flow.R;
 
 import java.util.ArrayList;
 
@@ -30,7 +32,7 @@ public class ProfilItemAdaper extends ArrayAdapter<ProfilItem> {
         ImageView image = convertView.findViewById(R.id.profilOptionImage);
         TextView text = convertView.findViewById(R.id.profilOptionText);
         text.setText(getItem(position).getItemText());
-        image.setImageBitmap(getItem(position).getItemImage());
+        image.setImageResource(getItem(position).getItemImage());
         return convertView;
     }
 }

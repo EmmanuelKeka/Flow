@@ -5,13 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.flow.listAdapers.tripAdapter;
+import com.example.flow.entities.Trip;
+import com.example.flow.utilities.MenuSetter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +27,8 @@ public class SearchResultActivity extends AppCompatActivity {
     String date,from,to,userId;
     DatabaseReference reference;
     BottomNavigationView bottomNavigationView;
+    MenuSetter menuSetter;
+    ArrayList<Trip> trips = new ArrayList<Trip>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,9 @@ public class SearchResultActivity extends AppCompatActivity {
         to = intent.getStringExtra("to");
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         bottomNavigationView = findViewById(R.id.nabBarSearchResult);
-        setMenu();
+
+        menuSetter= new MenuSetter(bottomNavigationView,this,userId);
+        menuSetter.setMenu();
 
         reference = FirebaseDatabase.getInstance().getReference("Trips");
         getTrips();
@@ -52,36 +57,16 @@ public class SearchResultActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<TripItem> tripItems = new ArrayList<TripItem>();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Trip trip = ds.getValue(Trip.class);
                     if(trip !=null) {
                         String tripDate = trip.getDateTime().toString().split(" ")[0];
-                        System.out.println(tripDate);
-                        if(trip.getFrom().equals(from) && trip.getTo().equals(to)&& tripDate.equals(date)) {
-                            tripItems.add(new TripItem(trip.getFrom(), trip.getTo(), "imageLink", trip.getDriverName(), trip.getDriverId(), trip.getDateTime(), trip.getPrice()));
-                        }
+                        if(trip.getFrom().equals(from) && trip.getTo().equals(to)&& tripDate.equals(date))
+                            trips.add(trip);
                     }
 
                 }
-                tripAdapter adapter = new tripAdapter(SearchResultActivity.this, R.layout.ride_item, tripItems);
-                listView.setAdapter(adapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        TripItem tripItem = tripItems.get(i);
-                        Intent intent = new Intent(SearchResultActivity.this, RideViewActivity.class);
-                        intent.putExtra("from", tripItem.getForm());
-                        intent.putExtra("to", tripItem.getTo());
-                        intent.putExtra("DriverName", tripItem.getDriverName());
-                        intent.putExtra("ImageName", tripItem.getImageName());
-                        intent.putExtra("DriverId", tripItem.getDriverId());
-                        intent.putExtra("TripDateTime", tripItem.getTripDateTime());
-                        intent.putExtra("TripPrice", tripItem.getTripPrice());
-                        intent.putExtra("PassagerId", userId);
-                        startActivity(intent);
-                    }
-                });
+                setListApdaper();
             }
 
             @Override
@@ -90,66 +75,27 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void setMenu(){
-        FirebaseDatabase.getInstance().getReference("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void setListApdaper(){
+        tripAdapter adapter = new tripAdapter(SearchResultActivity.this, R.layout.ride_item, trips);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userPro = snapshot.getValue(User.class);
-                if(userPro !=null){
-                    if(userPro.getAccountType().equals(User.AccountType.DRIVER_ACCOUNT)) {
-                        bottomNavigationView.inflateMenu(R.menu.nav_button_driver);
-                        setMenuListenForDriver();
-                    }
-                    else{
-                        bottomNavigationView.inflateMenu(R.menu.nav_bar_passager);
-                        setMenuListenForPassager();
-                    }
-                    bottomNavigationView.getMenu().getItem(2).setChecked(true);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                displayTripOnRideView(i);
             }
         });
     }
-    public void setMenuListenForDriver(){
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.homeNav:
-                        startActivity(new Intent(getApplicationContext(),ChatActivity.class));
-                        break;
-                    case R.id.profileNav:
-                        startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
-                        break;
-                    case R.id.tripNav:
-                        startActivity(new Intent(getApplicationContext(),CreatTripActivity.class));
-                        break;
-                }
-                return true;
-            }
-        });
-    }
-    public void setMenuListenForPassager(){
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.homeNav:
-                        startActivity(new Intent(getApplicationContext(),ChatActivity.class));
-                        break;
-                    case R.id.profileNav:
-                        startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
-                        break;
-                    case R.id.searchNav:
-                        startActivity(new Intent(getApplicationContext(),RideScreenActivity.class));
-                        break;
-                }
-                return true;
-            }
-        });
+    public void displayTripOnRideView(int i){
+        Trip tripItem = trips.get(i);
+        Intent intent = new Intent(SearchResultActivity.this, RideViewActivity.class);
+        intent.putExtra("from", tripItem.getFrom());
+        intent.putExtra("to", tripItem.getTo());
+        intent.putExtra("DriverName", tripItem.getDriverName());
+        intent.putExtra("ImageName", tripItem.getDriverId());
+        intent.putExtra("DriverId", tripItem.getDriverId());
+        intent.putExtra("TripDateTime", tripItem.getDateTime());
+        intent.putExtra("TripPrice", tripItem.getPrice());
+        intent.putExtra("PassagerId", userId);
+        startActivity(intent);
     }
 }

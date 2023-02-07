@@ -13,7 +13,8 @@
         android:layout_margin="20dp"
         android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
+
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="550dp"
@@ -21,51 +22,62 @@
         android:gravity="center|top"
         android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:id="@+id/BookedViewDriverName"
-        android:text="drivername"
-        android:textSize="20dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:id="@+id/BookedViewDateTime"
-        android:text="date"
-        android:textSize="20dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:id="@+id/BookedViewFrom"
-        android:text="from"
-        android:textSize="20dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:id="@+id/BookedViewTo"
-        android:text="To"
-        android:textSize="20dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:id="@+id/BookedViewPrice"
-        android:text="Price"
-        android:textSize="20dp"/>
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:onClick="cancelBookedTrip"
-        android:text="Cancel Trip"/>
+        <TextView
+            android:id="@+id/BookedViewDriverName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="drivername"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/BookedViewDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="date"
+            android:textColor="@color/black"
+            android:textSize="20dp" />/>
+
+        <TextView
+            android:id="@+id/BookedViewFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="from"
+            android:textColor="@color/black"
+            android:textSize="20dp" />/>
+
+        <TextView
+            android:id="@+id/BookedViewTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="To"
+            android:textColor="@color/black"
+            android:textSize="20dp" />/>
+
+        <TextView
+            android:id="@+id/BookedViewPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="Price"
+            android:textColor="@color/black"
+            android:textSize="20dp" />/>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:onClick="cancelBookedTrip"
+            android:text="Cancel Trip" />/>
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/nabBarBookedTripView"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout >

@@ -11,6 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.flow.entities.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,7 +23,7 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseAuth auth;
     EditText email,password,username;
     AutoCompleteTextView autoCompleteTextView;
-    String [] accountTypes = {User.AccountType.DRIVER_ACCOUNT.toString(),User.AccountType.PASSGER_ACCOUNT.toString()};
+    String [] accountTypes = {User.AccountType.DRIVER_ACCOUNT.toString(),User.AccountType.PASSENGER_ACCOUNT.toString()};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,29 +42,12 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
     public void creatUser(View view){
+        if(!valideInput())
+            return;
+
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
         String usernameText = username.getText().toString();
-        if(emailText.isEmpty()){
-            email.setError("Enter email");
-            email.requestFocus();
-            return;
-        }
-        if(emailText.isEmpty()){
-            username.setError("Enter Username");
-            username.requestFocus();
-            return;
-        }
-        if(passwordText.isEmpty()){
-            password.setError("Enter password");
-            password.requestFocus();
-            return;
-        }
-        if(passwordText.length() < 8){
-            password.setError("pasword too short");
-            password.requestFocus();
-            return;
-        }
         auth.createUserWithEmailAndPassword(emailText,passwordText)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -74,7 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
                             if(User.AccountType.DRIVER_ACCOUNT.toString().equals(autoCompleteTextView.getText().toString()))
                                 accountType = User.AccountType.DRIVER_ACCOUNT;
                             else
-                                accountType = User.AccountType.PASSGER_ACCOUNT;
+                                accountType = User.AccountType.PASSENGER_ACCOUNT;
 
                             User user = new User(usernameText,emailText, accountType);
                             FirebaseDatabase.getInstance().getReference("Users")
@@ -101,5 +85,28 @@ public class SignUpActivity extends AppCompatActivity {
     public void SendToLogInFromSignUp(View view){
         Intent intent = new Intent(this,LogInActivity.class);
         startActivity(intent);
+    }
+    public boolean valideInput(){
+        if(email.getText().toString().isEmpty()){
+            email.setError("Enter email");
+            email.requestFocus();
+            return false;
+        }
+        if(email.getText().toString().isEmpty()){
+            username.setError("Enter Username");
+            username.requestFocus();
+            return false;
+        }
+        if(password.getText().toString().isEmpty()){
+            password.setError("Enter password");
+            password.requestFocus();
+            return false;
+        }
+        if(password.getText().toString().length() < 8){
+            password.setError("pasword too short");
+            password.requestFocus();
+            return false;
+        }
+        return true;
     }
 }

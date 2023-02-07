@@ -1,4 +1,4 @@
-package com.example.flow;
+package com.example.flow.entities;
 
 public class Trip {
     private String from;

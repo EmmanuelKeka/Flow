@@ -11,17 +11,19 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/ridesharekccarpool"
-        android:layout_marginTop="20dp" />
+        android:layout_margin="20dp" />
 
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Log In"
-        android:onClick="SendToLogInFromMain"/>
+        android:onClick="SendToLogInFromMain"
+        android:fontFamily="@font/bebasbeue_regular"/>
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Sign Up"
-        android:onClick="SendToSignUpFromMain"/>
+        android:onClick="SendToSignUpFromMain"
+        android:fontFamily="@font/bebasbeue_regular"/>
 
 </LinearLayout>

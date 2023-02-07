@@ -1,4 +1,4 @@
-package com.example.flow;
+package com.example.flow.entities;
 
 public class User {
     private String username;
@@ -26,8 +26,8 @@ public class User {
     public User(){
 
     }
-    enum AccountType {
+    public enum AccountType {
         DRIVER_ACCOUNT,
-        PASSGER_ACCOUNT
+        PASSENGER_ACCOUNT
     }
 }

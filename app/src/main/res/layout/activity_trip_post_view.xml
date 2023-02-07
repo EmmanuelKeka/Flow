@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:text="drivername"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:fontFamily="@font/bebasbeue_regular"/>
 
         <TextView
             android:id="@+id/PostViewDateTime"
@@ -37,7 +38,8 @@
             android:layout_height="wrap_content"
             android:text="date"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:fontFamily="@font/bebasbeue_regular"/>
 
         <TextView
             android:id="@+id/PostViewFrom"
@@ -45,7 +47,8 @@
             android:layout_height="wrap_content"
             android:text="from"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:fontFamily="@font/bebasbeue_regular"/>
 
         <TextView
             android:id="@+id/PostViewTo"
@@ -53,7 +56,8 @@
             android:layout_height="wrap_content"
             android:text="To"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:fontFamily="@font/bebasbeue_regular"/>
 
         <TextView
             android:id="@+id/PostViewPrice"
@@ -61,13 +65,15 @@
             android:layout_height="wrap_content"
             android:text="Price"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:fontFamily="@font/bebasbeue_regular"/>
 
         <Button
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:onClick="deleteTripPost"
-            android:text="Delete TRip" />
+            android:text="Delete TRip"
+            android:fontFamily="@font/bebasbeue_regular"/>
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

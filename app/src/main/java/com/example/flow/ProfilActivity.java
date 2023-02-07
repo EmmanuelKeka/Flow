@@ -7,20 +7,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.example.flow.listAdapers.ProfilItem;
+import com.example.flow.listAdapers.ProfilItemAdaper;
+import com.example.flow.entities.User;
+import com.example.flow.utilities.MenuSetter;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +39,8 @@ public class ProfilActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     ImageView profil;
     StorageReference storageReference;
+    MenuSetter menuSetter;
+    ArrayList<ProfilItem> profilItems = new ArrayList<ProfilItem>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,62 +55,17 @@ public class ProfilActivity extends AppCompatActivity {
 
         username = findViewById(R.id.usernameProfil);
         accountType = findViewById(R.id.accountTypeProfil);
-        setMenu();
+
+        menuSetter= new MenuSetter(bottomNavigationView,this,userId);
+        menuSetter.setMenu();
+
         FirebaseDatabase.getInstance().getReference("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userPro = snapshot.getValue(User.class);
                 if(userPro !=null){
-                    username.setText("Username: " + userPro.getUsername());
-                    accountType.setText("Account Type: " + userPro.getAccountType().toString());
-                    ArrayList<ProfilItem> profilItems = new ArrayList<ProfilItem>();
-                    profilItems.add(new ProfilItem(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background),"Change Username"));
-                    profilItems.add(new ProfilItem(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background),"Change Acount Type"));
-                    profilItems.add(new ProfilItem(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background),"Trips Booked"));
-                    profilItems.add(new ProfilItem(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background),"Set Profile Image"));
-                    profilItems.add(new ProfilItem(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background),"Ratings"));
-
-                    if(userPro.getAccountType().equals(User.AccountType.DRIVER_ACCOUNT))
-                        profilItems.add(new ProfilItem(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background),"Trips posted"));
-
-                    profilItems.add(new ProfilItem(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background),"Log Out"));
-
-                    ProfilItemAdaper adaper = new ProfilItemAdaper(getApplicationContext(),R.layout.profil_item,profilItems);
-                    listView.setAdapter(adaper);
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            System.out.println(i);
-                            if(i == 0)
-                                startActivity(new Intent(getApplicationContext(),ChangeUsername.class));
-                            else if(i == 1){
-                                Intent intent = new Intent(getApplicationContext(),ChangeAccountTypeActivity.class);
-                                intent.putExtra("accountType",userPro.getAccountType().toString());
-                                startActivity(intent);
-                            }
-                            else if(i == 2)
-                                startActivity(new Intent(getApplicationContext(),BookedTripActivity.class));
-                            else if(i == 3)
-                                startActivity(new Intent(getApplicationContext(),SelectProfilImageActivity.class));
-                            else if(i == 4)
-                                startActivity(new Intent(getApplicationContext(),RatingActivity.class));
-                            if(userPro.getAccountType().equals(User.AccountType.DRIVER_ACCOUNT)) {
-                                if (i == 5) {
-                                    startActivity(new Intent(getApplicationContext(), TripPostedActivity.class));
-                                }
-                                if (i == 6) {
-                                    FirebaseAuth.getInstance().signOut();
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                }
-                            }
-                            else{
-                                if (i == 5) {
-                                    FirebaseAuth.getInstance().signOut();
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                }
-                            }
-                        }
-                    });
+                    setProfilItems(userPro.getUsername(), userPro.getAccountType().toString());
+                    setAdapeterAndList(profilItems,userPro.getAccountType().toString());
                 }
                 else{
                     System.out.println("nini papa" + FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -121,67 +77,6 @@ public class ProfilActivity extends AppCompatActivity {
             }
         });
 
-    }
-    public void setMenu(){
-        FirebaseDatabase.getInstance().getReference("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userPro = snapshot.getValue(User.class);
-                if(userPro !=null){
-                    if(userPro.getAccountType().equals(User.AccountType.DRIVER_ACCOUNT)) {
-                        bottomNavigationView.inflateMenu(R.menu.nav_button_driver);
-                        setMenuListenForDriver();
-                    }
-                    else{
-                        bottomNavigationView.inflateMenu(R.menu.nav_bar_passager);
-                        setMenuListenForPassager();
-                    }
-                    bottomNavigationView.getMenu().getItem(1).setChecked(true);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    public void setMenuListenForDriver(){
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.homeNav:
-                        startActivity(new Intent(getApplicationContext(),ChatActivity.class));
-                        break;
-                    case R.id.profileNav:
-                        startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
-                        break;
-                    case R.id.tripNav:
-                        startActivity(new Intent(getApplicationContext(),CreatTripActivity.class));
-                        break;
-                }
-                return true;
-            }
-        });
-    }
-    public void setMenuListenForPassager(){
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.homeNav:
-                        startActivity(new Intent(getApplicationContext(),ChatActivity.class));
-                        break;
-                    case R.id.profileNav:
-                        startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
-                        break;
-                    case R.id.searchNav:
-                        startActivity(new Intent(getApplicationContext(),RideScreenActivity.class));
-                        break;
-                }
-                return true;
-            }
-        });
     }
     public void setProfilImage(){
         try{
@@ -196,6 +91,69 @@ public class ProfilActivity extends AppCompatActivity {
                     });
         }
         catch (Exception e){
+
+        }
+    }
+    public void setProfilItems(String usernames, String accountTypes){
+        username.setText(usernames);
+        if(accountTypes.equals("DRIVER_ACCOUNT")){
+            accountType.setText(("DRIVER ACCOUNT"));
+        }
+        else{
+            accountType.setText(("PASSENGER ACCOUNT"));
+        }
+        profilItems.add(new ProfilItem(R.drawable.ic_action_name_change, "Change Username"));
+        profilItems.add(new ProfilItem(R.drawable.ic_action_account_change, "Change Acount Type"));
+        profilItems.add(new ProfilItem(R.drawable.ic_action_booking, "Trips Booked"));
+        profilItems.add(new ProfilItem(R.drawable.ic_action_image_change,"Set Profile Image"));
+        profilItems.add(new ProfilItem(R.drawable.ic_action_rating, "Ratings"));
+
+        if(accountTypes.equals(User.AccountType.DRIVER_ACCOUNT.toString()))
+            profilItems.add(new ProfilItem(R.drawable.ic_action_trip_post, "Trips posted"));
+
+        profilItems.add(new ProfilItem(R.drawable.ic_action_logout, "Log Out"));
+    }
+    public void setAdapeterAndList(ArrayList<ProfilItem> profilItems , String accountTypes){
+        ProfilItemAdaper adaper = new ProfilItemAdaper(getApplicationContext(),R.layout.profil_item,profilItems);
+        listView.setAdapter(adaper);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                setListener(i,accountTypes);
+            }
+        });
+    }
+    public void setListener(int i,String accountTypes){
+        switch(i){
+            case 0:
+                startActivity(new Intent(getApplicationContext(), ChangeUsernameActivity.class));
+                break;
+            case 1:
+                Intent intent = new Intent(getApplicationContext(),ChangeAccountTypeActivity.class);
+                intent.putExtra("accountType",accountTypes);
+                startActivity(intent);
+                break;
+            case 2:
+                startActivity(new Intent(getApplicationContext(),BookedTripActivity.class));
+                break;
+            case 3:
+                startActivity(new Intent(getApplicationContext(),SelectProfilImageActivity.class));
+                break;
+            case 4:
+                startActivity(new Intent(getApplicationContext(),RatingActivity.class));
+                break;
+            case 5:
+                if(accountTypes.equals(User.AccountType.DRIVER_ACCOUNT.toString())) {
+                    startActivity(new Intent(getApplicationContext(), TripPostedActivity.class));
+                    return;
+                }
+
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                break;
+            case 6:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
         }
     }

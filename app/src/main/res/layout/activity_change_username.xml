@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChangeUsername"
+    tools:context=".ChangeUsernameActivity"
     android:orientation="vertical"
     android:gravity="center|top">
 
@@ -16,38 +16,55 @@
         android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
+
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="550dp"
         android:layout_centerInParent="true"
         android:gravity="center|top"
         android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:text="Change Username "
-        android:textSize="30dp"
-        android:layout_margin="60dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="Username:"
-        android:layout_margin="20dp"
-        android:id="@+id/currentUsername"/>
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/changeUsername"/>
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Change Username"
-        android:onClick="changeUsername"/>
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="Change"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="Username"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/currentUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="Username:"
+            android:textColor="@color/black"
+            android:textStyle="bold" />/>
+
+        <EditText
+            android:id="@+id/changeUsername"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:onClick="changeUsername"
+            android:text="Change Username" />/>
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

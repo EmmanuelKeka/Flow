@@ -7,81 +7,102 @@
     tools:context=".CreatTripActivity"
     android:orientation="vertical"
     android:gravity="center|top">
+
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/ridesharekccarpool"
-        android:layout_margin="20dp"
-        android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="56dp"
+        android:src="@drawable/ridesharekccarpool" />
+
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="550dp"
+        android:layout_height="460dp"
         android:layout_centerInParent="true"
         android:gravity="center|top"
         android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:text="Creat Trip"
-        android:textSize="30dp"
-        android:layout_margin="60dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="From"/>
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/creatTripFrom"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="To"/>
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/creatTripTo"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="Price"/>
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/creatPrice"/>
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Save Trip"
-        android:onClick="SaveTrip" />
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="pick date"
-        android:onClick="selectdateCreatTrip"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        style="?android:spinnerStyle"
-        android:id="@+id/selectdateInCreatTrip"/>
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="pick time"
-        android:onClick="selectTimeCreatTrip"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        style="?android:spinnerStyle"
-        android:id="@+id/selectTimeInCreatTrip"/>
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="40dp"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="Creat Trip"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="From"
+            android:textColor="@color/black"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/creatTripFrom"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="To"
+            android:textColor="@color/black"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/creatTripTo"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:textColor="@color/black"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/creatPrice"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/selectdateInCreatTrip"
+            style="?android:spinnerStyle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:onClick="selectdateCreatTrip"
+            android:text="pick date"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:fontFamily="@font/bebasbeue_regular" />
+
+        <Button
+            android:id="@+id/selectTimeInCreatTrip"
+            style="?android:spinnerStyle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:onClick="selectTimeCreatTrip"
+            android:text="pick time"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:fontFamily="@font/bebasbeue_regular"/>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:onClick="SaveTrip"
+            android:text="Save Trip"
+            android:fontFamily="@font/bebasbeue_regular"/>
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

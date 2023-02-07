@@ -15,16 +15,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
+        android:textStyle="bold|italic"
         android:textColor="@color/black"
         android:text="Log In "
         android:textSize="30dp"
-        android:layout_margin="60dp"/>
+        android:layout_margin="60dp"
+        android:fontFamily="@font/bebasbeue_regular"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="Email"/>
+        android:text="Email"
+        android:fontFamily="@font/bebasbeue_regular"
+        android:textStyle="bold"/>
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -33,7 +36,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="Password"/>
+        android:text="Password"
+        android:fontFamily="@font/bebasbeue_regular"
+        android:textStyle="bold"/>
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -43,11 +48,13 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Log In"
-        android:onClick="logUser" />
+        android:onClick="logUser"
+        android:fontFamily="@font/bebasbeue_regular" />
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Sign Up"
-        android:onClick="sendToSignUpFromLogIn"/>
+        android:onClick="sendToSignUpFromLogIn"
+        android:fontFamily="@font/bebasbeue_regular" />
 
 </LinearLayout>

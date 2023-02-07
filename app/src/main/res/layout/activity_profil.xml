@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfilActivity"
-    android:orientation="vertical"
-    android:gravity="center|top">
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ridesharekccarpool"
-        android:layout_margin="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+    tools:context=".ProfilActivity">
+
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="550dp"
@@ -29,20 +19,25 @@
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold" />
+
         <ImageView
+            android:id="@+id/profilimageProfil"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/ridesharekccarpool"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/profilimageProfil"/>
+            android:src="@drawable/ridesharekccarpool" />
 
         <TextView
             android:id="@+id/usernameProfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:fontFamily=""
             android:text="Username:"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/accountTypeProfil"
@@ -50,7 +45,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
             android:text="Account Type:"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:textStyle="bold|italic" />
 
         <ListView
             android:id="@+id/profileListView"

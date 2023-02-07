@@ -23,24 +23,15 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
 
         auth = FirebaseAuth.getInstance();
-
         email = findViewById(R.id.logInEmail);
         password = findViewById(R.id.logInPassword);
     }
     public void logUser(View view){
+        if(!validateInput()){
+            return;
+        }
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
-
-        if(emailText.isEmpty()){
-            email.setError("Enter email");
-            email.requestFocus();
-            return;
-        }
-        if(passwordText.isEmpty()){
-            password.setError("Enter password");
-            password.requestFocus();
-            return;
-        }
         auth.signInWithEmailAndPassword(emailText,passwordText)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -56,5 +47,18 @@ public class LogInActivity extends AppCompatActivity {
     public void sendToSignUpFromLogIn(View view){
         Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
         startActivity(intent);
+    }
+    public boolean validateInput(){
+        if(email.getText().toString().isEmpty()){
+            email.setError("Enter email");
+            email.requestFocus();
+            return false;
+        }
+        if(password.getText().toString().isEmpty()){
+            password.setError("Enter password");
+            password.requestFocus();
+            return false;
+        }
+        return true;
     }
 }

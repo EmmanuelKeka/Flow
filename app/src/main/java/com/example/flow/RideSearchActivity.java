@@ -1,29 +1,21 @@
 package com.example.flow;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.appsearch.SearchResult;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 
+import com.example.flow.utilities.MenuSetter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
@@ -33,6 +25,7 @@ public class RideSearchActivity extends AppCompatActivity {
     String selectedDate,userId;
     DatePickerDialog datePickerDialog;
     BottomNavigationView bottomNavigationView;
+    MenuSetter menuSetter;
     
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -50,7 +43,8 @@ public class RideSearchActivity extends AppCompatActivity {
         datePickerDialog.updateDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         bottomNavigationView = findViewById(R.id.nabBarRideSearch);
-        setMenu();
+        menuSetter= new MenuSetter(bottomNavigationView,this,userId);
+        menuSetter.setMenu();
         bottomNavigationView.setSelectedItemId(R.id.searchNav);
 
 
@@ -90,67 +84,5 @@ public class RideSearchActivity extends AppCompatActivity {
         intent.putExtra("date",selectedDate);
         System.out.println(selectedDate);
         startActivity(intent);
-    }
-
-    public void setMenu(){
-        FirebaseDatabase.getInstance().getReference("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userPro = snapshot.getValue(User.class);
-                if(userPro !=null){
-                    if(userPro.getAccountType().equals(User.AccountType.DRIVER_ACCOUNT)) {
-                        bottomNavigationView.inflateMenu(R.menu.nav_button_driver);
-                        setMenuListenForDriver();
-                    }
-                    else{
-                        bottomNavigationView.inflateMenu(R.menu.nav_bar_passager);
-                        setMenuListenForPassager();
-                    }
-                    bottomNavigationView.getMenu().getItem(2).setChecked(true);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    public void setMenuListenForDriver(){
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.homeNav:
-                        startActivity(new Intent(getApplicationContext(),ChatActivity.class));
-                        break;
-                    case R.id.profileNav:
-                        startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
-                        break;
-                    case R.id.tripNav:
-                        startActivity(new Intent(getApplicationContext(),CreatTripActivity.class));
-                        break;
-                }
-                return true;
-            }
-        });
-    }
-    public void setMenuListenForPassager(){
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.homeNav:
-                        startActivity(new Intent(getApplicationContext(),ChatActivity.class));
-                        break;
-                    case R.id.profileNav:
-                        startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
-                        break;
-                    case R.id.searchNav:
-                        startActivity(new Intent(getApplicationContext(),RideScreenActivity.class));
-                        break;
-                }
-                return true;
-            }
-        });
     }
 }

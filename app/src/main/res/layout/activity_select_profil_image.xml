@@ -19,14 +19,16 @@
         android:layout_centerInParent="true"
         android:gravity="center|top"
         android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:text="Select Image"
-        android:textSize="30dp"
-        android:layout_margin="60dp"/>
+
+        <TextView
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="60dp"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="Select Image"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold|italic" />
 
     <ImageView
         android:layout_width="200dp"
@@ -38,12 +40,14 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Select image"
-        android:onClick="selectImage" />
+        android:onClick="selectImage"
+        android:fontFamily="@font/bebasbeue_regular"/>
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Set as profile"
-        android:onClick="setAsProfil"/>
+        android:onClick="setAsProfil"
+        android:fontFamily="@font/bebasbeue_regular"/>
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

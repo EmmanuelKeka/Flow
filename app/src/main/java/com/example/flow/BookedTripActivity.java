@@ -5,13 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.flow.listAdapers.BookingAdaptor;
+import com.example.flow.entities.Booking;
+import com.example.flow.entities.User;
+import com.example.flow.utilities.MenuSetter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +29,8 @@ public class BookedTripActivity extends AppCompatActivity {
     private String userId;
     private ListView listView;
     private BottomNavigationView bottomNavigationView;
+    private MenuSetter menuSetter;
+    ArrayList<Booking> bookings = new ArrayList<Booking>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +40,51 @@ public class BookedTripActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference("Booking");
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         listView = findViewById(R.id.BookedTripList);
-        setMenu();
+        menuSetter= new MenuSetter(bottomNavigationView,this,userId);
+        menuSetter.setMenu();
+        loadTripbyAccountType();
+    }
+    public void loadTrip(User.AccountType acountType ){
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds: snapshot.getChildren()){
+                    Booking book= ds.getValue(Booking.class);
+                    checkAcountTyepeAddBookingToArray(acountType,book);
+                }
+                setListBookingListener();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        FirebaseDatabase.getInstance().getReference("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            }
+        });
+    }
+    public void setListBookingListener(){
+        BookingAdaptor adapter = new BookingAdaptor (getApplicationContext(),R.layout.book_item,bookings);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Booking booking = bookings.get(i);
+                Intent intent = new Intent(getApplicationContext(),BookedTripViewActivity.class);
+                intent.putExtra("from",booking.getFrom());
+                intent.putExtra("to",booking.getTo());
+                intent.putExtra("DriverName",booking.getDriverName());
+                intent.putExtra("DriverId",booking.getDriverId());
+                intent.putExtra("TripDateTime",booking.getDateTime());
+                intent.putExtra("TripPrice",booking.getPrice());
+                intent.putExtra("BookingId",booking.getBookingId());
+                startActivity(intent);
+            }
+        });
+    }
+    public void loadTripbyAccountType(){
+        DatabaseReference reference= FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(userId);
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userPro = snapshot.getValue(User.class);
@@ -52,107 +98,17 @@ public class BookedTripActivity extends AppCompatActivity {
             }
         });
     }
-    public void loadTrip(User.AccountType acountType ){
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<Booking> tripItems = new ArrayList<Booking>();
-                for(DataSnapshot ds: snapshot.getChildren()){
-                    Booking book= ds.getValue(Booking.class);
-                    if(acountType.equals(User.AccountType.DRIVER_ACCOUNT)){
-                        if(book.getDriverId().equals(userId)) {
-                            tripItems.add(new Booking(book.getPassagerId(), book.getDriverId(), book.getFrom(), book.getTo(), book.getBookingId(), book.getDateTime(), book.getDriverName(), book.getPrice()));
-                        }
-                    }
-                    else{
-                        if(book.getPassagerId().equals(userId)) {
-                            tripItems.add(new Booking(book.getPassagerId(), book.getDriverId(), book.getFrom(), book.getTo(), book.getBookingId(), book.getDateTime(), book.getDriverName(), book.getPrice()));
-                        }
-                    }
-                    BookingAdaptor adapter = new BookingAdaptor (getApplicationContext(),R.layout.book_item,tripItems);
-                    listView.setAdapter(adapter);
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Booking booking = tripItems.get(i);
-                            Intent intent = new Intent(getApplicationContext(),BookedTripViewActivity.class);
-                            intent.putExtra("from",booking.getFrom());
-                            intent.putExtra("to",booking.getTo());
-                            intent.putExtra("DriverName",booking.getDriverName());
-                            intent.putExtra("DriverId",booking.getDriverId());
-                            intent.putExtra("TripDateTime",booking.getDateTime());
-                            intent.putExtra("TripPrice",booking.getPrice());
-                            intent.putExtra("BookingId",booking.getBookingId());
-                            startActivity(intent);
-                        }
-                    });
-                }
+    public void checkAcountTyepeAddBookingToArray(User.AccountType acountType,Booking book){
+        if(acountType.equals(User.AccountType.DRIVER_ACCOUNT)){
+            if(book.getDriverId().equals(userId)) {
+                bookings.add(book);
             }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        }
+        else{
+            if(book.getPassagerId().equals(userId)) {
+                bookings.add(book);
+            }
+        }
+    }
 
-            }
-        });
-    }
-    public void setMenu(){
-        FirebaseDatabase.getInstance().getReference("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userPro = snapshot.getValue(User.class);
-                if(userPro !=null){
-                    if(userPro.getAccountType().equals(User.AccountType.DRIVER_ACCOUNT)) {
-                        bottomNavigationView.inflateMenu(R.menu.nav_button_driver);
-                        setMenuListenForDriver();
-                    }
-                    else{
-                        bottomNavigationView.inflateMenu(R.menu.nav_bar_passager);
-                        setMenuListenForPassager();
-                    }
-                    bottomNavigationView.getMenu().getItem(1).setChecked(true);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    public void setMenuListenForDriver(){
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.homeNav:
-                        startActivity(new Intent(getApplicationContext(),ChatActivity.class));
-                        break;
-                    case R.id.profileNav:
-                        startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
-                        break;
-                    case R.id.tripNav:
-                        startActivity(new Intent(getApplicationContext(),CreatTripActivity.class));
-                        break;
-                }
-                return true;
-            }
-        });
-    }
-    public void setMenuListenForPassager(){
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.homeNav:
-                        startActivity(new Intent(getApplicationContext(),ChatActivity.class));
-                        break;
-                    case R.id.profileNav:
-                        startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
-                        break;
-                    case R.id.searchNav:
-                        startActivity(new Intent(getApplicationContext(),RideScreenActivity.class));
-                        break;
-                }
-                return true;
-            }
-        });
-    }
 }

@@ -1,17 +1,15 @@
-package com.example.flow;
-
-import android.graphics.Bitmap;
+package com.example.flow.listAdapers;
 
 public class ProfilItem {
-    private Bitmap itemImage;
+    private int itemImage;
     private String itemText;
 
-    public ProfilItem(Bitmap itemImage, String itemText) {
+    public ProfilItem(int itemImage, String itemText) {
         this.itemImage = itemImage;
         this.itemText = itemText;
     }
 
-    public Bitmap getItemImage() {
+    public int getItemImage() {
         return itemImage;
     }
 

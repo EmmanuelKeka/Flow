@@ -1,4 +1,4 @@
-package com.example.flow;
+package com.example.flow.listAdapers;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.flow.R;
+import com.example.flow.entities.Trip;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -21,10 +23,10 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.util.ArrayList;
 
-public class tripAdapter extends ArrayAdapter<TripItem> {
+public class tripAdapter extends ArrayAdapter<Trip> {
     private Context mycontext;
     private int myresource;
-    public tripAdapter(@NonNull Context context, int resource, @NonNull ArrayList<TripItem> objects) {
+    public tripAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Trip> objects) {
         super(context, resource, objects);
         mycontext = context;
         myresource = resource;
@@ -42,10 +44,10 @@ public class tripAdapter extends ArrayAdapter<TripItem> {
         TextView driverNameFrag = convertView.findViewById(R.id.driverNameFrag);
         TextView priceFrag = convertView.findViewById(R.id.priceFrag);
         ImageView image = convertView.findViewById(R.id.profilOptionDriverImage);
-        from.setText("from: "+ getItem(position).getForm());
+        from.setText("from: "+ getItem(position).getFrom());
         to.setText("To: " + getItem(position).getTo());
-        dateTime.setText("Date & time: " + getItem(position).getTripDateTime());
-        priceFrag.setText("Price: "+ getItem(position).getTripPrice());
+        dateTime.setText("Date & time: " + getItem(position).getDateTime());
+        priceFrag.setText("Price: "+ getItem(position).getPrice());
         driverNameFrag.setText("Driver name: " + getItem(position).getDriverName());
         try{
             File imageFile = File.createTempFile("tempImage","jpg");
