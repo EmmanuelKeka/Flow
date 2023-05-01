@@ -74,7 +74,9 @@ public class BookedTripActivity extends AppCompatActivity {
                 intent.putExtra("DriverId",booking.getDriverId());
                 intent.putExtra("TripDateTime",booking.getDateTime());
                 intent.putExtra("TripPrice",booking.getPrice());
+                intent.putExtra("DriverId",booking.getDriverId());
                 intent.putExtra("BookingId",booking.getBookingId());
+                intent.putExtra("TripId",booking.getTripId());
                 startActivity(intent);
             }
         });

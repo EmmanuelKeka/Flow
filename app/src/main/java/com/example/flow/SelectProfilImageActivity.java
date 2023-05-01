@@ -43,6 +43,7 @@ public class SelectProfilImageActivity extends AppCompatActivity {
 
     public void setAsProfil(View view){
         String fileName = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        System.out.println("gg: " + fileName);
         storageReference.putFile(imageUri)
                 .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override

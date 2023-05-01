@@ -25,7 +25,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 
 public class RideViewActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapLoadedCallback {
-    private String imageName, driverName, to, from,driverId,passagerId,tripDateTime,tripPrice,userId;
+    private String imageName,tripId, driverName, to, from,driverId,passagerId,tripDateTime,tripPrice,userId;
     private TextView fromView,toView,driverNameView,tripDateTimeView,tripPriceView;
     private GoogleMap map;
     private BottomNavigationView bottomNavigationView;
@@ -51,6 +51,7 @@ public class RideViewActivity extends AppCompatActivity implements OnMapReadyCal
         passagerId = intent.getStringExtra("PassagerId");
         tripDateTime = intent.getStringExtra("TripDateTime");
         tripPrice = intent.getStringExtra("TripPrice");
+        tripId = intent.getStringExtra("TripId");
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         bottomNavigationView = findViewById(R.id.nabBarRideView);
         imageView = findViewById(R.id.profilImageRideView);
@@ -96,6 +97,7 @@ public class RideViewActivity extends AppCompatActivity implements OnMapReadyCal
         intent.putExtra("TripDateTime",tripDateTime);
         intent.putExtra("TripPrice",tripPrice);
         intent.putExtra("PassagerId" , passagerId);
+        intent.putExtra("TripId" , tripId);
         startActivity(intent);
     }
     public void setProfilImage(){

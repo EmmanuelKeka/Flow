@@ -8,6 +8,7 @@ public class Trip {
     private String dateTime;
     private String price;
     private String tripId;
+    private boolean tripBook = false;
 
 
     public Trip(String from, String to, String driverName, String driverId, String dateTime, String price, String tripId) {
@@ -50,5 +51,41 @@ public class Trip {
 
     public String getDriverName() {
         return driverName;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
+    }
+
+    public void setDriverId(String driverId) {
+        this.driverId = driverId;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setTripId(String tripId) {
+        this.tripId = tripId;
+    }
+
+    public boolean isTripBook() {
+        return tripBook;
+    }
+
+    public void setTripBook(boolean tripBook) {
+        this.tripBook = tripBook;
     }
 }

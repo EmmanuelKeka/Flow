@@ -30,21 +30,24 @@
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold|italic" />
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="314dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="You booking is confirmed thank for using our service"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold|italic"
+            android:visibility="invisible"
+            android:id="@+id/paymentConfirmationText"/>
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Pay"
         android:onClick="payTrip"
-        android:fontFamily="@font/bebasbeue_regular"/>
+        android:fontFamily="@font/bebasbeue_regular"
+        android:id="@+id/paymentButton"/>
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

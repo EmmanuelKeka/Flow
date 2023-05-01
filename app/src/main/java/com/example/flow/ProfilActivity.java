@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.flow.entities.Rate;
 import com.example.flow.listAdapers.ProfilItem;
 import com.example.flow.listAdapers.ProfilItemAdaper;
 import com.example.flow.entities.User;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 
 public class ProfilActivity extends AppCompatActivity {
     ListView listView;
-    TextView username,accountType;
+    TextView username,accountType,driverRate,passengerRate;
     String userId;
     BottomNavigationView bottomNavigationView;
     ImageView profil;
@@ -55,6 +56,8 @@ public class ProfilActivity extends AppCompatActivity {
 
         username = findViewById(R.id.usernameProfil);
         accountType = findViewById(R.id.accountTypeProfil);
+        driverRate = findViewById(R.id.driverRateing);
+        passengerRate = findViewById(R.id.passengerRating);
 
         menuSetter= new MenuSetter(bottomNavigationView,this,userId);
         menuSetter.setMenu();
@@ -64,7 +67,9 @@ public class ProfilActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userPro = snapshot.getValue(User.class);
                 if(userPro !=null){
-                    setProfilItems(userPro.getUsername(), userPro.getAccountType().toString());
+                    double driverRates = meanCal(userPro.getDriverRating());
+                    double passengerRates = meanCal(userPro.getPassengerRating());
+                    setProfilItems(userPro.getUsername(), userPro.getAccountType().toString(),driverRates,passengerRates);
                     setAdapeterAndList(profilItems,userPro.getAccountType().toString());
                 }
                 else{
@@ -94,7 +99,7 @@ public class ProfilActivity extends AppCompatActivity {
 
         }
     }
-    public void setProfilItems(String usernames, String accountTypes){
+    public void setProfilItems(String usernames, String accountTypes,double driverRating,double passengerRating){
         username.setText(usernames);
         if(accountTypes.equals("DRIVER_ACCOUNT")){
             accountType.setText(("DRIVER ACCOUNT"));
@@ -102,11 +107,14 @@ public class ProfilActivity extends AppCompatActivity {
         else{
             accountType.setText(("PASSENGER ACCOUNT"));
         }
+        driverRate.setText("Driver Rating: " + driverRating);
+        passengerRate.setText("Passenger Rating: " + passengerRating);
         profilItems.add(new ProfilItem(R.drawable.ic_action_name_change, "Change Username"));
         profilItems.add(new ProfilItem(R.drawable.ic_action_account_change, "Change Acount Type"));
         profilItems.add(new ProfilItem(R.drawable.ic_action_booking, "Trips Booked"));
         profilItems.add(new ProfilItem(R.drawable.ic_action_image_change,"Set Profile Image"));
         profilItems.add(new ProfilItem(R.drawable.ic_action_rating, "Ratings"));
+        profilItems.add(new ProfilItem(R.drawable.ic_action_list_pending, "Pedding review"));
 
         if(accountTypes.equals(User.AccountType.DRIVER_ACCOUNT.toString()))
             profilItems.add(new ProfilItem(R.drawable.ic_action_trip_post, "Trips posted"));
@@ -143,6 +151,9 @@ public class ProfilActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),RatingActivity.class));
                 break;
             case 5:
+                startActivity(new Intent(getApplicationContext(),PendingRateMainActivity.class));
+                break;
+            case 6:
                 if(accountTypes.equals(User.AccountType.DRIVER_ACCOUNT.toString())) {
                     startActivity(new Intent(getApplicationContext(), TripPostedActivity.class));
                     return;
@@ -151,10 +162,20 @@ public class ProfilActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
-            case 6:
+            case 7:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
         }
+    }
+    public double meanCal(ArrayList<Rate> rates){
+        System.out.println("size === " + rates.size());
+        double mean = 0.0;
+        if(rates.size() <= 0){
+            return mean;
+        }
+        for(int i =0;i< rates.size(); i++){
+            mean = mean +  rates.get(i).getStartNumber();
+        }
+        return mean / rates.size();
     }
 }

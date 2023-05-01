@@ -15,17 +15,55 @@
         android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
+
     <LinearLayout
+
         android:layout_width="300dp"
         android:layout_height="550dp"
         android:layout_centerInParent="true"
         android:gravity="center|top"
         android:orientation="vertical">
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Submit rating"/>
-    ] </LinearLayout>
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ridesharekccarpool" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="Number of Starts"
+            android:textColor="@color/black" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Number Of Stars">
+
+            <AutoCompleteTextView
+                android:id="@+id/accountTypeSelector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bebasbeue_regular"
+                android:inputType="none"
+                android:textStyle="bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:text="Submit rating"
+            android:onClick="rateUser"/>
+        ]
+    </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

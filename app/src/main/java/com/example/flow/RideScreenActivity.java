@@ -47,8 +47,9 @@ public class RideScreenActivity extends AppCompatActivity {
                 listView = findViewById(R.id.ListTripRideList);
                 for(DataSnapshot ds: snapshot.getChildren()){
                     Trip trip= ds.getValue(Trip.class);
-                    trips.add(trip);
-
+                    if(!trip.isTripBook()) {
+                        trips.add(trip);
+                    }
                 }
                 tripAdapter adapter = new tripAdapter(RideScreenActivity.this,R.layout.ride_item,trips);
                 listView.setAdapter(adapter);
@@ -80,6 +81,7 @@ public class RideScreenActivity extends AppCompatActivity {
         intent.putExtra("DriverId",tripItem.getDriverId());
         intent.putExtra("TripDateTime",tripItem.getDateTime());
         intent.putExtra("TripPrice",tripItem.getPrice());
+        intent.putExtra("TripId",tripItem.getTripId());
         intent.putExtra("PassagerId" , userId);
         startActivity(intent);
     }

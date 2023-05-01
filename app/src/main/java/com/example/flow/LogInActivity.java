@@ -48,6 +48,10 @@ public class LogInActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
         startActivity(intent);
     }
+    public void sentoForgot(View view){
+        Intent intent = new Intent(getApplicationContext(),PasswordForgatActivity.class);
+        startActivity(intent);
+    }
     public boolean validateInput(){
         if(email.getText().toString().isEmpty()){
             email.setError("Enter email");

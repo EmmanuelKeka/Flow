@@ -54,7 +54,6 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             User.AccountType accountType = null;
-                            System.out.println(autoCompleteTextView.getText().toString());
                             if(User.AccountType.DRIVER_ACCOUNT.toString().equals(autoCompleteTextView.getText().toString()))
                                 accountType = User.AccountType.DRIVER_ACCOUNT;
                             else

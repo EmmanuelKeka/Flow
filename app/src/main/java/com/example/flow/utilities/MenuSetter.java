@@ -10,6 +10,7 @@ import com.example.flow.BookedTripActivity;
 import com.example.flow.BookedTripViewActivity;
 import com.example.flow.ChangeAccountTypeActivity;
 import com.example.flow.ChatActivity;
+import com.example.flow.ChatListActivity;
 import com.example.flow.CreatTripActivity;
 import com.example.flow.DriverProfilActivity;
 import com.example.flow.PaymentActivity;
@@ -24,6 +25,7 @@ import com.example.flow.SelectProfilImageActivity;
 import com.example.flow.TripPostViewActivity;
 import com.example.flow.TripPostedActivity;
 import com.example.flow.entities.User;
+import com.example.flow.listAdapers.PeddingAdaptor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
@@ -88,7 +90,7 @@ public class MenuSetter {
     public void navigateToSelectedPage(MenuItem item){
         switch (item.getItemId()){
             case R.id.homeNav:
-                context.startActivity(new Intent(context, ChatActivity.class));
+                context.startActivity(new Intent(context, ChatListActivity.class));
                 break;
             case R.id.profileNav:
                 context.startActivity(new Intent(context, ProfilActivity.class));
@@ -103,6 +105,9 @@ public class MenuSetter {
     }
     public void setIcon(){
         if(context.getClass().getName().equals(ChatActivity.class.getName())){
+            bottomNavigationView.getMenu().getItem(0).setChecked(true);
+        }
+        else if(context.getClass().getName().equals(ChatListActivity.class.getName())){
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
         }
         else if(context.getClass().getName().equals(BookedTripActivity.class.getName())){
@@ -124,6 +129,9 @@ public class MenuSetter {
             bottomNavigationView.getMenu().getItem(1).setChecked(true);
         }
         else if(context.getClass().getName().equals(ProfilActivity.class.getName())){
+            bottomNavigationView.getMenu().getItem(1).setChecked(true);
+        }
+        else if(context.getClass().getName().equals(PeddingAdaptor.class.getName())){
             bottomNavigationView.getMenu().getItem(1).setChecked(true);
         }
         else if(context.getClass().getName().equals(RatingActivity.class.getName())){
@@ -150,5 +158,6 @@ public class MenuSetter {
         else if(context.getClass().getName().equals(TripPostViewActivity.class.getName())){
             bottomNavigationView.getMenu().getItem(2).setChecked(true);
         }
+
     }
 }

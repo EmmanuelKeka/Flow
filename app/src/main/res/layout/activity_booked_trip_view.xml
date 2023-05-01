@@ -72,7 +72,19 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/bebasbeue_regular"
             android:onClick="cancelBookedTrip"
-            android:text="Cancel Trip" />/>
+            android:text="Cancel Trip" />
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:onClick="messagerOtherParty"
+            android:text="Message" />
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:onClick="completeTrip"
+            android:text="complete trip" />
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

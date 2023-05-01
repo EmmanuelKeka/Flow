@@ -42,7 +42,6 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/signUpUsername"
-        android:fontFamily="@font/bebasbeue_regular"
         android:textStyle="bold"/>
     <TextView
         android:layout_width="wrap_content"
@@ -68,7 +67,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/signUpPassword"
         android:password="true"
-        android:fontFamily="@font/bebasbeue_regular"
         android:textStyle="bold"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -91,12 +89,14 @@
         android:layout_height="wrap_content"
         android:text="Sign Up"
         android:onClick="creatUser"
+        android:fontFamily="@font/bebasbeue_regular"
         />
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Log In"
-        android:onClick="SendToLogInFromSignUp"/>
+        android:onClick="SendToLogInFromSignUp"
+        android:fontFamily="@font/bebasbeue_regular" />
     </LinearLayout>
 
 </RelativeLayout>

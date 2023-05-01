@@ -9,6 +9,7 @@ public class Booking {
     private String dateTime;
     private String driverName;
     private String price;
+    private String tripId;
 
 
     public Booking(String passagerId, String driverId, String from, String to, String bookingId, String dateTime, String driverName, String price) {
@@ -55,5 +56,45 @@ public class Booking {
 
     public String getTo() {
         return to;
+    }
+
+    public void setPassagerId(String passagerId) {
+        this.passagerId = passagerId;
+    }
+
+    public void setDriverId(String driverId) {
+        this.driverId = driverId;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public void setBookingId(String bookingId) {
+        this.bookingId = bookingId;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getTripId() {
+        return tripId;
+    }
+
+    public void setTripId(String tripId) {
+        this.tripId = tripId;
     }
 }
