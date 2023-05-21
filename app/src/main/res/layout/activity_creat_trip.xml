@@ -8,41 +8,38 @@
     android:orientation="vertical"
     android:gravity="center|top">
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="56dp"
-        android:src="@drawable/ridesharekccarpool" />
 
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="460dp"
+        android:layout_height="400dp"
         android:layout_centerInParent="true"
         android:gravity="center|top"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ridesharekccarpool" />
+
         <TextView
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="40dp"
+            android:layout_width="58dp"
+            android:layout_height="16dp"
             android:fontFamily="@font/bebasbeue_regular"
             android:text="Creat Trip"
             android:textColor="@color/black"
-            android:textSize="30dp"
             android:textStyle="bold|italic" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
             android:text="From"
             android:textColor="@color/black"
-            android:fontFamily="@font/bebasbeue_regular"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/creatTripFrom"
@@ -52,10 +49,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
             android:text="To"
             android:textColor="@color/black"
-            android:fontFamily="@font/bebasbeue_regular"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/creatTripTo"
@@ -65,10 +62,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
             android:text="Price"
             android:textColor="@color/black"
-            android:fontFamily="@font/bebasbeue_regular"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/creatPrice"
@@ -80,29 +77,29 @@
             style="?android:spinnerStyle"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
             android:onClick="selectdateCreatTrip"
             android:text="pick date"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            android:fontFamily="@font/bebasbeue_regular" />
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/selectTimeInCreatTrip"
             style="?android:spinnerStyle"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
             android:onClick="selectTimeCreatTrip"
             android:text="pick time"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            android:fontFamily="@font/bebasbeue_regular"/>
+            android:textColor="@color/black" />
 
         <Button
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
             android:onClick="SaveTrip"
-            android:text="Save Trip"
-            android:fontFamily="@font/bebasbeue_regular"/>
+            android:text="Save Trip" />
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

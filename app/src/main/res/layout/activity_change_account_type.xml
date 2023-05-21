@@ -6,44 +6,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChangeAccountTypeActivity">
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ridesharekccarpool"
-        android:layout_margin="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
 
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="550dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center|top"
         android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ridesharekccarpool" />
+
 
         <TextView
             android:id="@+id/currentAcountType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
             android:text="Amount Type:"
-            android:textColor="@color/black"
-            android:fontFamily="@font/bebasbeue_regular"/>/>
+            android:textColor="@color/black" />/>
 
         <Button
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:fontFamily="@font/bebasbeue_regular"
             android:onClick="changeToDriver"
-            android:text="Driver TYpe"
-            android:fontFamily="@font/bebasbeue_regular"/>/>
+            android:text="Driver TYpe" />/>
 
         <Button
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
             android:onClick="changeToPassger"
-            android:text="PassENger Type"
-            android:fontFamily="@font/bebasbeue_regular"/>/>
+            android:text="PassENger Type" />/>
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

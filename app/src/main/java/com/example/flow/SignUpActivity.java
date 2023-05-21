@@ -76,7 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
                             email.setText("");
                             password.setText("");
                             username.setText("");
-                            Toast.makeText(SignUpActivity.this, "Sign Up uccessfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Sign Up successfully", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -5,21 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PaymentActivity">
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ridesharekccarpool"
-        android:layout_margin="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="550dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center|top"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ridesharekccarpool" />
 
         <TextView
             android:layout_width="90dp"
@@ -30,24 +33,27 @@
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold|italic" />
+
         <TextView
-            android:layout_width="314dp"
+            android:id="@+id/paymentConfirmationText"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/bebasbeue_regular"
             android:text="You booking is confirmed thank for using our service"
             android:textColor="@color/black"
-            android:textSize="30dp"
-            android:textStyle="bold|italic"
             android:visibility="invisible"
-            android:id="@+id/paymentConfirmationText"/>
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Pay"
-        android:onClick="payTrip"
-        android:fontFamily="@font/bebasbeue_regular"
-        android:id="@+id/paymentButton"/>
+            android:textSize="20dp"
+
+            android:textStyle="bold|italic" />
+
+        <Button
+            android:id="@+id/paymentButton"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:onClick="payTrip"
+            android:text="Pay" />
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

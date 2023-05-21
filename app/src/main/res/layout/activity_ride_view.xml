@@ -6,36 +6,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RideViewActivity"
-    android:gravity="center"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ridesharekccarpool"
-        android:layout_margin="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
 
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="550dp"
+        android:layout_height="500dp"
         android:layout_centerInParent="true"
         android:gravity="center|top"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ridesharekccarpool" />
+
         <LinearLayout
             android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
             android:gravity="left"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/profilImageRideView"/>
+                android:id="@+id/profilImageRideView"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
 
             <TextView
                 android:id="@+id/driverNameViewTrop"
@@ -48,28 +49,25 @@
             android:id="@+id/TripDateTimeRideView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:text="Date Time:" />
 
         <TextView
             android:id="@+id/priceRideView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:text="Price: " />
 
         <TextView
             android:id="@+id/fromViewTrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:text="from" />
 
         <fragment
             android:id="@+id/the_map"
             android:name="com.google.android.gms.maps.MapFragment"
-            android:layout_width="300dp"
-            android:layout_height="253dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             map:cameraTargetLat="40"
             map:cameraTargetLng="-110"
             map:cameraZoom="3"
@@ -79,11 +77,10 @@
             android:id="@+id/toViewTrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:text="to" />
 
         <Button
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="bookTrip"
             android:text="Book trip" />

@@ -47,6 +47,9 @@ public class RideScreenActivity extends AppCompatActivity {
                 listView = findViewById(R.id.ListTripRideList);
                 for(DataSnapshot ds: snapshot.getChildren()){
                     Trip trip= ds.getValue(Trip.class);
+                    if(trip.getDriverId().equals(userId)){
+                        continue;
+                    }
                     if(!trip.isTripBook()) {
                         trips.add(trip);
                     }

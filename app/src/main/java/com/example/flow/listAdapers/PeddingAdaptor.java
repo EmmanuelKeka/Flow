@@ -9,10 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.example.flow.R;
 import com.example.flow.entities.PendingRate;
 import com.example.flow.entities.User;
@@ -45,9 +43,16 @@ public class PeddingAdaptor extends ArrayAdapter<PendingRate> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mycontext);
         convertView = inflater.inflate(myresource,parent,false);
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference("profileImages/" + getItem(position).getPassengerId());
         TextView texterName = convertView.findViewById(R.id.PeddingTextername);
         ImageView image = convertView.findViewById(R.id.PeddingTexterImage);
+        String id = "";
+        if(userId.equals(getItem(position).getPassengerId())){
+            id = getItem(position).getDriverId();
+        }
+        else {
+            id = getItem(position).getPassengerId();
+        }
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("profileImages/" + id);
         try{
             File imageFile = File.createTempFile("tempImage","jpg");
             storageReference.getFile(imageFile)
@@ -61,13 +66,6 @@ public class PeddingAdaptor extends ArrayAdapter<PendingRate> {
         }
         catch (Exception e){
 
-        }
-        String id = "";
-        if(userId.equals(getItem(position).getPassengerId())){
-            id = getItem(position).getDriverId();
-        }
-        else {
-            id = getItem(position).getPassengerId();
         }
         FirebaseDatabase.getInstance().getReference("Users")
                 .child(id)

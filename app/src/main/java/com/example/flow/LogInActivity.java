@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LogInActivity extends AppCompatActivity {
     EditText email,password;
     FirebaseAuth auth;
+    ProgressBar bar;
+    LinearLayout logWin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +29,12 @@ public class LogInActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         email = findViewById(R.id.logInEmail);
         password = findViewById(R.id.logInPassword);
+        bar = findViewById(R.id.LogInProgBar);
+        logWin = findViewById(R.id.logInWindow);
     }
     public void logUser(View view){
+        bar.setVisibility(View.VISIBLE);
+        logWin.setVisibility(View.INVISIBLE);
         if(!validateInput()){
             return;
         }
@@ -40,6 +48,12 @@ public class LogInActivity extends AppCompatActivity {
                             Toast.makeText(LogInActivity.this, "log in successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(),ProfilActivity.class);
                             startActivity(intent);
+                            bar.setVisibility(View.INVISIBLE);
+                            logWin.setVisibility( View.VISIBLE);
+                        }else{
+                            bar.setVisibility(View.INVISIBLE);
+                            logWin.setVisibility( View.VISIBLE);
+                            Toast.makeText(LogInActivity.this, "Check your details and try again", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

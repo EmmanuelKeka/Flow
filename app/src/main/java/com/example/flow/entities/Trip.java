@@ -88,4 +88,5 @@ public class Trip {
     public void setTripBook(boolean tripBook) {
         this.tripBook = tripBook;
     }
+
 }

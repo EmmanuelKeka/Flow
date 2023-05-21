@@ -54,9 +54,10 @@ public class SearchResultActivity extends AppCompatActivity {
 
     }
     public void getTrips(){
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                trips = new ArrayList<Trip>();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Trip trip = ds.getValue(Trip.class);
                     if(trip !=null) {

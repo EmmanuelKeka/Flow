@@ -5,38 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BookedTripActivity">
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ridesharekccarpool"
-        android:layout_margin="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="550dp"
+        android:layout_height="400dp"
         android:layout_centerInParent="true"
         android:gravity="center|top"
-        android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:text="Booked Trip "
-        android:textSize="30dp"
-        android:layout_margin="30dp"/>
+        android:orientation="vertical"
+        android:id="@+id/booklayout">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ridesharekccarpool" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:text="Booked Trip "
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/BookedTripList"
             android:layout_width="300dp"
             android:layout_height="300dp" />
     </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nabBarBookedTrip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nabBarBookedTrip"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="166dp" />
 
 </RelativeLayout>

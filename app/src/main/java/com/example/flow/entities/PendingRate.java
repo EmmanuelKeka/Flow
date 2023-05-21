@@ -4,7 +4,7 @@ public class PendingRate {
     private String DriverId;
     private String PassengerId;
 
-    PendingRate(){
+    public PendingRate(){
 
     }
 

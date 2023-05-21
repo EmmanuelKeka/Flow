@@ -31,6 +31,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ProfilActivity extends AppCompatActivity {
@@ -42,6 +43,7 @@ public class ProfilActivity extends AppCompatActivity {
     StorageReference storageReference;
     MenuSetter menuSetter;
     ArrayList<ProfilItem> profilItems = new ArrayList<ProfilItem>();
+    DecimalFormat df = new DecimalFormat("0.00");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,13 +109,12 @@ public class ProfilActivity extends AppCompatActivity {
         else{
             accountType.setText(("PASSENGER ACCOUNT"));
         }
-        driverRate.setText("Driver Rating: " + driverRating);
-        passengerRate.setText("Passenger Rating: " + passengerRating);
+        driverRate.setText("Driver Rating: " +  df.format(driverRating));
+        passengerRate.setText("Passenger Rating: " +  df.format(passengerRating));
         profilItems.add(new ProfilItem(R.drawable.ic_action_name_change, "Change Username"));
         profilItems.add(new ProfilItem(R.drawable.ic_action_account_change, "Change Acount Type"));
         profilItems.add(new ProfilItem(R.drawable.ic_action_booking, "Trips Booked"));
         profilItems.add(new ProfilItem(R.drawable.ic_action_image_change,"Set Profile Image"));
-        profilItems.add(new ProfilItem(R.drawable.ic_action_rating, "Ratings"));
         profilItems.add(new ProfilItem(R.drawable.ic_action_list_pending, "Pedding review"));
 
         if(accountTypes.equals(User.AccountType.DRIVER_ACCOUNT.toString()))
@@ -134,7 +135,24 @@ public class ProfilActivity extends AppCompatActivity {
     public void setListener(int i,String accountTypes){
         switch(i){
             case 0:
-                startActivity(new Intent(getApplicationContext(), ChangeUsernameActivity.class));
+                FirebaseDatabase.getInstance().getReference("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User userPro = snapshot.getValue(User.class);
+                        if(userPro !=null){
+                            Intent intent = new Intent(getApplicationContext(), ChangeUsernameActivity.class);
+                            intent.putExtra("username",userPro.getUsername());
+                            startActivity(intent);
+                        }
+                        else{
+                            System.out.println("nini papa" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 break;
             case 1:
                 Intent intent = new Intent(getApplicationContext(),ChangeAccountTypeActivity.class);
@@ -148,12 +166,9 @@ public class ProfilActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),SelectProfilImageActivity.class));
                 break;
             case 4:
-                startActivity(new Intent(getApplicationContext(),RatingActivity.class));
-                break;
-            case 5:
                 startActivity(new Intent(getApplicationContext(),PendingRateMainActivity.class));
                 break;
-            case 6:
+            case 5:
                 if(accountTypes.equals(User.AccountType.DRIVER_ACCOUNT.toString())) {
                     startActivity(new Intent(getApplicationContext(), TripPostedActivity.class));
                     return;
@@ -162,7 +177,7 @@ public class ProfilActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
-            case 7:
+            case 6:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }

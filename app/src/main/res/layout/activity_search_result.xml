@@ -8,37 +8,40 @@
     android:orientation="vertical"
     android:gravity="top|center">
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ridesharekccarpool"
-        android:layout_margin="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="550dp"
+        android:layout_height="450dp"
         android:layout_centerInParent="true"
         android:gravity="center|top"
         android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:text="Search Result"
-        android:textSize="30dp"
-        android:layout_margin="20dp"/>
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:onClick="GoToSearchFromSearchResult"/>
-    <ListView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/ListTripSearchResult"/>
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ridesharekccarpool"
+            android:layout_margin="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Search Result"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:onClick="GoToSearchFromSearchResult"
+            android:text="Search" />
+
+        <ListView
+            android:id="@+id/ListTripSearchResult"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

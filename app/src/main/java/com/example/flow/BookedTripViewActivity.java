@@ -28,7 +28,7 @@ import java.util.HashMap;
 public class BookedTripViewActivity extends AppCompatActivity {
     private TextView driverName,dateTime,from,to,price;
     private DatabaseReference reference;
-    private String bookingIdText,userId,driverId,tripid;
+    private String bookingIdText,userId,driverId,tripid,passengerId, toSendId;
     private BottomNavigationView bottomNavigationView;
     private MenuSetter menuSetter;
 
@@ -55,11 +55,33 @@ public class BookedTripViewActivity extends AppCompatActivity {
         String toText = intent.getStringExtra("to");
         String priceText = intent.getStringExtra("TripPrice");
         bookingIdText = intent.getStringExtra("BookingId");
-        bookingIdText = intent.getStringExtra("BookingId");
         driverId = intent.getStringExtra("DriverId");
         tripid = intent.getStringExtra("TripId");
+        passengerId = intent.getStringExtra("PasId");
 
-        driverName.setText("Driver Name: " + driverNameText);
+        if(driverId.equals(userId)){
+            toSendId = passengerId;
+            FirebaseDatabase.getInstance().getReference("Users").child(passengerId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User userPro = snapshot.getValue(User.class);
+                    if(userPro !=null){
+                        driverName.setText("Passenger Name: " + userPro.getUsername());
+                    }
+                    else{
+                        System.out.println("nini papa" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        else {
+            toSendId = driverId;
+            driverName.setText("Driver Name: " + driverNameText);
+        }
         dateTime.setText("Date & Time: "+ dateTimeText);
         from.setText("From: " + fromText);
         to.setText("To: "+ toText);
@@ -151,5 +173,10 @@ public class BookedTripViewActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public void messagerOtherParty(View view){
+        Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
+        intent.putExtra("otherParty",toSendId);
+        startActivity(intent);
     }
 }

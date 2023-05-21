@@ -2,8 +2,8 @@
 package com.example.flow;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.flow.entities.Booking;
 import com.example.flow.utilities.MenuSetter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,17 +19,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.sendgrid.*;
-import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
-import com.sendgrid.helpers.mail.objects.Email;
-import com.sendgrid.helpers.mail.objects.Personalization;
+import com.google.firebase.database.annotations.NotNull;
+import com.google.gson.Gson;
+import com.stripe.android.model.PaymentIntent;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -44,11 +43,16 @@ public class PaymentActivity extends AppCompatActivity {
     private String apiKey;
     private Button paymenyButton;
     private TextView paymentCon;
+    private OkHttpClient httpClient;
+    private Gson gson;
+    private String paymentIntentClientSecret;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
+        httpClient = new OkHttpClient();
+        gson = new Gson();
         Intent intent = getIntent();
         driverName = intent.getStringExtra("DriverName");
         to =intent.getStringExtra("to");

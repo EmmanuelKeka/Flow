@@ -3,22 +3,31 @@ package com.example.flow;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.flow.entities.PendingRate;
 import com.example.flow.entities.Rate;
 import com.example.flow.entities.User;
 import com.example.flow.utilities.MenuSetter;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class RatingActivity extends AppCompatActivity {
@@ -31,6 +40,7 @@ public class RatingActivity extends AppCompatActivity {
     String index = "";
     AutoCompleteTextView autoCompleteTextView;
     String [] startsNumbers = {"1","2","3","4","5"};
+    ImageView profil;
     boolean driver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +50,7 @@ public class RatingActivity extends AppCompatActivity {
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         bottomNavigationView = findViewById(R.id.nabBarRating);
         menuSetter= new MenuSetter(bottomNavigationView,this,userId);
+        profil = findViewById(R.id.ratingImage);
 
         autoCompleteTextView = findViewById(R.id.accountTypeSelector);
         menuSetter.setMenu();
@@ -138,5 +149,32 @@ public class RatingActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public void loadProf(){
+        String id = "";
+        Rate rating = new Rate();
+        if(driverId.equals(userId)){
+            driver = false;
+            id = passengerId;
+        }
+        else {
+            driver = true;
+            id = driverId;
+        }
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("profileImages/" + id);
+        try{
+            File imageFile = File.createTempFile("tempImage","jpg");
+            storageReference.getFile(imageFile)
+                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                            profil.setImageBitmap(bitmap);
+                        }
+                    });
+        }
+        catch (Exception e){
+
+        }
     }
 }

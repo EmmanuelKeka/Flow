@@ -2,18 +2,13 @@ package com.example.flow;
 
 import static org.junit.Assert.assertEquals;
 
-import android.content.Context;
-
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.platform.app.InstrumentationRegistry;
-
 import com.example.flow.entities.User;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-@RunWith(AndroidJUnit4.class)
-public class TestUserClass {
+public class TextUser {
     @Test
     public void getSetUsername() {
         User user = new User();
@@ -33,9 +28,17 @@ public class TestUserClass {
     @Test
     public void getSetAccountType() {
         User user = new User();
-        user.setEmail("emmanuel@gmail.com");
-        String expected = "emmanuel@gmail.com";
-        String output = user.getEmail();
+        user.setAccountType(User.AccountType.DRIVER_ACCOUNT);
+        User.AccountType expected = User.AccountType.DRIVER_ACCOUNT;
+        User.AccountType output = user.getAccountType();
+        assertEquals(expected,output);
+    }
+    @Test
+    public void getSetUserName() {
+        User user = new User();
+        user.setAccountType(User.AccountType.DRIVER_ACCOUNT);
+        User.AccountType expected = User.AccountType.DRIVER_ACCOUNT;
+        User.AccountType output = user.getAccountType();
         assertEquals(expected,output);
     }
 }

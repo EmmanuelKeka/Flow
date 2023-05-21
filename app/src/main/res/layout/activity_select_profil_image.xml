@@ -5,17 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SelectProfilImageActivity">
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ridesharekccarpool"
-        android:layout_margin="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="550dp"
+        android:layout_height="450dp"
         android:layout_centerInParent="true"
         android:gravity="center|top"
         android:orientation="vertical">
@@ -23,31 +16,32 @@
         <TextView
             android:layout_width="135dp"
             android:layout_height="wrap_content"
-            android:layout_margin="60dp"
             android:fontFamily="@font/bebasbeue_regular"
             android:text="Select Image"
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold|italic" />
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="20dp"
-        android:id="@+id/imageSecleted"
-        android:src="@drawable/ridesharekccarpool"/>
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Select image"
-        android:onClick="selectImage"
-        android:fontFamily="@font/bebasbeue_regular"/>
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Set as profile"
-        android:onClick="setAsProfil"
-        android:fontFamily="@font/bebasbeue_regular"/>
+        <ImageView
+            android:id="@+id/imageSecleted"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ridesharekccarpool" />
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:onClick="selectImage"
+            android:text="Select image" />
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bebasbeue_regular"
+            android:onClick="setAsProfil"
+            android:text="Set as profile" />
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
